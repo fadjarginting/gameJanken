@@ -12,6 +12,7 @@ object Game {
         "PAPER-SCISSOR" to false,
     )
     private val options = listOf("ROCK","SCISSOR", "PAPER")
+
     private val optionDrawable = mapOf(
         "ROCK" to R.drawable.rock,
         "SCISSORS" to R.drawable.scissors,
@@ -19,8 +20,13 @@ object Game {
     )
 
     fun pickRandomOption():String = options[Random.nextInt(0,3)]
-    fun pickDrawable(option: String): Int = optionDrawable[option]!!
+    fun pickDrawable(option: String): Int {
+        return optionDrawable[option] ?: 0 // Mengembalikan nilai default jika tidak ditemukan.
+    }
     fun isDraw(from:String, to:String):Boolean = from == to
-    fun isWin(from: String, to: String):Boolean= rules["$from-$to"]!!
+    fun isWin(from: String, to: String): Boolean {
+        val key = "$from-$to"
+        return rules[key] ?: false // Mengembalikan false jika aturan tidak ditemukan.
+    }
 
 }
